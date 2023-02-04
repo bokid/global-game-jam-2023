@@ -9,6 +9,7 @@ public class playerController : MonoBehaviour
     float verticalVelocity = 0f;
     int movementDirection = 0;
     bool isGrounded;
+    public bool isCollidingWithTerrain = IsTouchingLayers(int layerMask = Physics2D.Terrain);
 
     [SerializeField]BoxCollider2D groundedBox;
 
@@ -16,7 +17,7 @@ public class playerController : MonoBehaviour
     public float JUMP_FORCE = 0.5f;
     public float GRAVITY_FORCE = 1f;
     public float MAX_HORIZONTAL_SPEED = 0.8f;
-
+    
     private void FixedUpdate() {
         GroundedCheck();
         HandleAcceleration();
@@ -27,9 +28,13 @@ public class playerController : MonoBehaviour
         // please don't ask me how this works
         List<Collider2D> results = new List<Collider2D>();
         ContactFilter2D noFilter = new ContactFilter2D();
-        int hitGround = groundedBox.OverlapCollider(noFilter.NoFilter(), results);
-        Debug.Log(hitGround);
-        isGrounded = hitGround > 0 && verticalVelocity <= 0;
+        int hits = groundedBox.OverlapCollider(noFilter.NoFilter(), results);
+        Debug.Log(hits);
+        // isGrounded = hits > 0 && verticalVelocity <= 0;
+        for(int i = 0; i < hits; i++)
+        {
+            //if(results[i].gameObject.)
+        }
     }
 
     void HandleAcceleration() {
