@@ -17,9 +17,6 @@ public class playerController : MonoBehaviour
     public float GRAVITY_FORCE = 1f;
     public float MAX_HORIZONTAL_SPEED = 0.8f;
 
-    public Transform respawnPoint;
-    public GameObject SpawnUpdater;
-
     private void FixedUpdate() {
         GroundedCheck();
         HandleAcceleration();
@@ -85,19 +82,6 @@ public class playerController : MonoBehaviour
     public void OnJumpInput(InputAction.CallbackContext c) {
         if (c.started) {
             HandleJump();
-        }
-    }
-
-    private void OnTriggerEnter2D(Collider2D collider)
-    {
-        if (collider.tag == "Hazard")
-        {
-            transform.position = respawnPoint.position;
-        }
-        else if (collider.tag == "SpawnUpdater")
-        {
-            respawnPoint.position = collider.transform.position;
-            collider.gameObject.SetActive(false);
         }
     }
 }
