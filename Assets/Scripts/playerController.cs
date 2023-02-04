@@ -4,12 +4,13 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class playerController : MonoBehaviour
-{
+{    
+    [SerializeField] private LayerMask physicalLayers;
+
     float horizontalVelocity = 0f;
     float verticalVelocity = 0f;
     int movementDirection = 0;
     bool isGrounded;
-    public bool isCollidingWithTerrain = IsTouchingLayers(int layerMask = Physics2D.Terrain);
 
     [SerializeField]BoxCollider2D groundedBox;
 
@@ -29,11 +30,16 @@ public class playerController : MonoBehaviour
         List<Collider2D> results = new List<Collider2D>();
         ContactFilter2D noFilter = new ContactFilter2D();
         int hits = groundedBox.OverlapCollider(noFilter.NoFilter(), results);
-        Debug.Log(hits);
-        // isGrounded = hits > 0 && verticalVelocity <= 0;
+Debug.Log(hits);
+
+        isGrounded = false;
         for(int i = 0; i < hits; i++)
         {
-            //if(results[i].gameObject.)
+            if (((1 << results[i].gameObject.layer) & physicalLayers) > 0)
+            {
+                isGrounded = true;
+                break;
+            }
         }
     }
 
@@ -59,7 +65,7 @@ public class playerController : MonoBehaviour
         if (!isGrounded) {
             verticalVelocity -= GRAVITY_FORCE * Time.fixedDeltaTime;
         }
-        else {
+        else if (verticalVelocity < 0) {
             verticalVelocity = 0;
         }
     }
