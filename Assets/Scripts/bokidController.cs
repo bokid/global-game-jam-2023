@@ -21,7 +21,6 @@ public class bokidController : MonoBehaviour
     void Start()
     {
         rb_boi = GetComponent<Rigidbody2D>();
-        
     }
 
     // Update is called once per frame
@@ -29,26 +28,23 @@ public class bokidController : MonoBehaviour
     {
         moveInput = Input.GetAxis("Horizontal");
 
-        //print(moveInput);
-
         rb_boi.velocity = new Vector2(moveInput * speed, rb_boi.velocity.y);
+
+        if (rb_boi.velocity.x < 0) {
+            transform.localScale = new Vector3(-1, 1, 1);
+        }
+        else if (rb_boi.velocity.x > 0) {
+            transform.localScale = new Vector3(1, 1, 1);
+        }
 
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, checkRadius, whatIsGround);
 
         if (isGrounded)
         {
-            print("we're grounded!");
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                print("I'm jumpin!");
-
                 rb_boi.velocity = Vector2.up * jumpForce;
             }
         }
-        
-            
-
-
-        
     }
 }
