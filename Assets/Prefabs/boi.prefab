@@ -166,7 +166,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!114 &6203681924242441587
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -181,11 +181,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   jumpForce: 5
+  slidingSpeed: 2
   groundCheck: {fileID: 4334317458618982200}
   checkRadius: 0.1
   whatIsGround:
     serializedVersion: 2
     m_Bits: 128
+  frontCheck: {fileID: 8975079303866360248}
 --- !u!1 &7059294536543742876
 GameObject:
   m_ObjectHideFlags: 0
