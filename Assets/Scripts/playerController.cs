@@ -17,6 +17,9 @@ public class playerController : MonoBehaviour
     public float GRAVITY_FORCE = 1f;
     public float MAX_HORIZONTAL_SPEED = 0.8f;
 
+    public Transform respawnPoint;
+    public GameObject SpawnUpdater;
+
     private void FixedUpdate() {
         GroundedCheck();
         HandleAcceleration();
@@ -28,7 +31,7 @@ public class playerController : MonoBehaviour
         List<Collider2D> results = new List<Collider2D>();
         ContactFilter2D noFilter = new ContactFilter2D();
         int hitGround = groundedBox.OverlapCollider(noFilter.NoFilter(), results);
-        Debug.Log(hitGround);
+        //Debug.Log(hitGround);
         isGrounded = hitGround > 0 && verticalVelocity <= 0;
     }
 
@@ -82,6 +85,19 @@ public class playerController : MonoBehaviour
     public void OnJumpInput(InputAction.CallbackContext c) {
         if (c.started) {
             HandleJump();
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collider)
+    {
+        if (collider.tag == "Hazard")
+        {
+            transform.position = respawnPoint.position;
+        }
+        else if (collider.tag == "SpawnUpdater")
+        {
+            respawnPoint.position = collider.transform.position;
+            collider.gameObject.SetActive(false);
         }
     }
 }
