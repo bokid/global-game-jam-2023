@@ -20,9 +20,10 @@ public class TreeSpawn : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.tag == "boi")
+        if (collider.tag == "Player")
         {
-            transform.position = respawnPoint.position;
+        //To do: activate tree
+           collider.transform.position = respawnPoint.position;
         }
     }
 }
