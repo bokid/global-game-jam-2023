@@ -33,7 +33,7 @@ public class bokidController : MonoBehaviour
 
         //isGrounded = Physics2D.OverlapCircle(groundCheck.position, checkRadius, whatIsGround);
 
-        if (Input.GetKeyDown(KeyCode.Space)
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             rb_boi.velocity = Vector2.up * jumpForce;
         }
