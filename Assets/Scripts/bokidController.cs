@@ -19,7 +19,6 @@ public class bokidController : MonoBehaviour
     void Start()
     {
         rb_boi = GetComponent<Rigidbody2D>();
-        
     }
 
     // Update is called once per frame
@@ -30,6 +29,13 @@ public class bokidController : MonoBehaviour
         print(moveInput);
 
         rb_boi.velocity = new Vector2(moveInput * speed, rb_boi.velocity.y);
+
+        if (rb_boi.velocity.x < 0) {
+            transform.localScale = new Vector3(-1, 1, 1);
+        }
+        else if (rb_boi.velocity.x > 0) {
+            transform.localScale = new Vector3(1, 1, 1);
+        }
 
         //isGrounded = Physics2D.OverlapCircle(groundCheck.position, checkRadius, whatIsGround);
 
