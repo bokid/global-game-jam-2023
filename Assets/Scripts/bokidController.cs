@@ -11,10 +11,12 @@ public class bokidController : MonoBehaviour
 
     public float jumpForce;
 
-    //public Transform groundCheck;
-    //public float checkRadius;
-    //public LayerMask whatIsGround;
+    private bool isGrounded;
+    public Transform groundCheck;
+    public float checkRadius;
+    public LayerMask whatIsGround;
 
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -26,8 +28,6 @@ public class bokidController : MonoBehaviour
     {
         moveInput = Input.GetAxis("Horizontal");
 
-        print(moveInput);
-
         rb_boi.velocity = new Vector2(moveInput * speed, rb_boi.velocity.y);
 
         if (rb_boi.velocity.x < 0) {
@@ -37,13 +37,14 @@ public class bokidController : MonoBehaviour
             transform.localScale = new Vector3(1, 1, 1);
         }
 
-        //isGrounded = Physics2D.OverlapCircle(groundCheck.position, checkRadius, whatIsGround);
+        isGrounded = Physics2D.OverlapCircle(groundCheck.position, checkRadius, whatIsGround);
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (isGrounded)
         {
-            rb_boi.velocity = Vector2.up * jumpForce;
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                rb_boi.velocity = Vector2.up * jumpForce;
+            }
         }
-
-        
     }
 }
