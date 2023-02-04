@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 574234373}
   - component: {fileID: 574234372}
   - component: {fileID: 574234374}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -201,7 +201,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 574234371}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.4003, y: -2.56, z: 0}
+  m_LocalPosition: {x: -3.4, y: -2.56, z: 0}
   m_LocalScale: {x: 20.23642, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -325,6 +325,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4334317458618982200, guid: 0479f8fd4f8576b45ada194492f8e466, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6203681924242441586, guid: 0479f8fd4f8576b45ada194492f8e466, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -369,9 +373,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6203681924242441587, guid: 0479f8fd4f8576b45ada194492f8e466, type: 3}
+      propertyPath: checkRadius
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6203681924242441587, guid: 0479f8fd4f8576b45ada194492f8e466, type: 3}
+      propertyPath: groundCheck
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6203681924242441587, guid: 0479f8fd4f8576b45ada194492f8e466, type: 3}
+      propertyPath: whatIsGround.m_Bits
+      value: 128
+      objectReference: {fileID: 0}
     - target: {fileID: 6203681924242441590, guid: 0479f8fd4f8576b45ada194492f8e466, type: 3}
       propertyPath: m_Name
-      value: boi
+      value: boi_v2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0479f8fd4f8576b45ada194492f8e466, type: 3}
