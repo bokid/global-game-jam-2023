@@ -13,7 +13,7 @@ public class TreeSpawn : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        animator = GetComponentInChildren<Animator>(true);
     }
 
     // Update is called once per frame
