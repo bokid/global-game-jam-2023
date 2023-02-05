@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class rotateFaster : MonoBehaviour
 {
-    float sawRotation = 0f;
 
     public float SPEEN_SPEED = 5f;
 
