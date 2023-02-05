@@ -556,6 +556,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6203681924242441587, guid: 0479f8fd4f8576b45ada194492f8e466, type: 3}
+      propertyPath: walkSound
+      value: 
+      objectReference: {fileID: 1619683594}
     - target: {fileID: 6203681924242441590, guid: 0479f8fd4f8576b45ada194492f8e466, type: 3}
       propertyPath: m_Name
       value: boi
