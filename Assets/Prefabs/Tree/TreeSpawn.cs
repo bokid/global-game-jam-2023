@@ -16,6 +16,7 @@ public class TreeSpawn : MonoBehaviour
     void Start()
     {
         animator = GetComponentInChildren<Animator>(true);
+        respawnPoint = GameObject.Find("RespawnPoint").transform;
     }
 
     // Update is called once per frame
