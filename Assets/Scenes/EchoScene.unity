@@ -1394,6 +1394,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1234841339360598048, guid: 41fec925d86afd344ad8b40dd9917995, type: 3}
+      propertyPath: respawnPoint
+      value: 
+      objectReference: {fileID: 291395693}
     - target: {fileID: 4714413270222269462, guid: 41fec925d86afd344ad8b40dd9917995, type: 3}
       propertyPath: m_RootOrder
       value: 1
