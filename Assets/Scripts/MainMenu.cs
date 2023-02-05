@@ -6,7 +6,7 @@ public class MainMenu : MonoBehaviour
 {
     public void StartGame()
     {
-        SceneManager.LoadScene("bokidInputs");
+        SceneManager.LoadScene("EchoScene");
         Time.timeScale = 1;
     }
 
