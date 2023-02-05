@@ -2,14 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-public class MainMenu : MonoBehaviour
+
+public class GameOver : MonoBehaviour
 {
-    public void StartGame()
+    public void MainMenu()
     {
-        SceneManager.LoadScene("bokidInputs");
+        SceneManager.LoadScene("Menu");
         Time.timeScale = 1;
     }
-
-    
-
 }
