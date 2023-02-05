@@ -28,7 +28,7 @@ public class TreeSpawn : MonoBehaviour
             {
                 Debug.Log("Grow to the heavens!");
                 treeVisualAnimator.SetTrigger("Grow");
-                respawnPoint.position = transform.position + new Vector3(0, 6, 0);
+                respawnPoint.position = transform.position + new Vector3(0, 18, 0);
             }
         }
     }
