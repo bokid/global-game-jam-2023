@@ -26,9 +26,9 @@ public class bokidController : MonoBehaviour {
     private ContactFilter2D contactFilter;
     private ContactPoint2D[] contactPoints = new ContactPoint2D[16];
     private Vector3 previousPosition;
-    [SerializeField] private HashSet<Collider2D> touchedFloors;
-    [SerializeField] private HashSet<Collider2D> touchedLeftWalls;
-    [SerializeField] private HashSet<Collider2D> touchedRightWalls;
+    private HashSet<Collider2D> touchedFloors;
+    private HashSet<Collider2D> touchedLeftWalls;
+    private HashSet<Collider2D> touchedRightWalls;
 
     // Start is called before the first frame update
     void Start() {
