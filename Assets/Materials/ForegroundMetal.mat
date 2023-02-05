@@ -7,11 +7,11 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Sawblade
-  m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
-  m_ValidKeywords:
+  m_Name: ForegroundMetal
+  m_Shader: {fileID: 4800000, guid: 86d3bcb6c1cabb244943f850aeb6ef68, type: 3}
+  m_ValidKeywords: []
+  m_InvalidKeywords:
   - _GLOSSYREFLECTIONS_OFF
-  m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -42,7 +42,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 97e8516f440643f499d95c23e0568b8b, type: 3}
+        m_Texture: {fileID: 2800000, guid: bc5f4920074f03a4aaa1734d7c2085f1, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -64,18 +64,19 @@ Material:
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _GlossMapScale: 1
-    - _Glossiness: 0.031
+    - _Glossiness: 0.112
     - _GlossyReflections: 0
-    - _Metallic: 0
+    - _Metallic: 0.19
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
+    - _Scale: 0.1
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
-    - _Color: {r: 0.93773586, g: 0.969849, b: 1, a: 1}
+    - _Color: {r: 0.90943396, g: 0.97101885, b: 1, a: 1}
     - _EmissionColor: {r: 0.12031755, g: 0.104289785, b: 0.254717, a: 1}
   m_BuildTextureStacks: []

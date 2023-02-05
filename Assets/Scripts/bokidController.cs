@@ -23,6 +23,8 @@ public class bokidController : MonoBehaviour
 
     int facing = 1;
 
+    public AudioSource walkSound;
+
 
     
     // Start is called before the first frame update
@@ -58,10 +60,30 @@ public class bokidController : MonoBehaviour
         if (moveInput < 0) 
         {
             facing = -1;
+            if(!walkSound.isPlaying && isGrounded)
+            {
+                walkSound.Play();
+            }
+            else if (!isGrounded)
+            {
+                walkSound.Stop();
+            }
         }
         else if (moveInput > 0) 
         {
             facing = 1;
+            if (!walkSound.isPlaying && isGrounded)
+            {
+                walkSound.Play();
+            }
+            else if (!isGrounded)
+            {
+                walkSound.Stop();
+            }
+        }
+        else
+        {
+            walkSound.Stop();
         }
         
 
