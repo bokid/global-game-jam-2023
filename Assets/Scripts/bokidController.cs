@@ -2,76 +2,137 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class bokidController : MonoBehaviour
-{
+public class bokidController : MonoBehaviour {
     public float speed;
     private float moveInput;
 
+    private bool jumpInput;
+
     private Rigidbody2D rb_boi;
+
+    private SpriteRenderer spriteRenderer;
 
     public float jumpForce;
 
     public float slidingSpeed;
 
-    private bool isGrounded;
-    public Transform groundCheck;
-    public float checkRadius;
+    /*[SerializeField]*/ private bool isGrounded;
+    /*[SerializeField]*/ private bool touchingLeftWall;
+    /*[SerializeField]*/ private bool touchingRightWall;
+
     public LayerMask whatIsGround;
 
-    private bool onWall;
-    public Transform frontCheck;
+    BoxCollider2D bodyCollider;
+    private ContactFilter2D contactFilter;
+    private ContactPoint2D[] contactPoints = new ContactPoint2D[16];
+    private Vector3 previousPosition;
+    private HashSet<Collider2D> touchedFloors;
+    private HashSet<Collider2D> touchedLeftWalls;
+    private HashSet<Collider2D> touchedRightWalls;
 
-    int facing = 1;
-
-
-    
     // Start is called before the first frame update
-    void Start()
-    {
+    void Start() {
+        touchedFloors = new HashSet<Collider2D>();
+        touchedLeftWalls = new HashSet<Collider2D>();
+        touchedRightWalls = new HashSet<Collider2D>();
+        bodyCollider = GetComponent<BoxCollider2D>();
         rb_boi = GetComponent<Rigidbody2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+
+        contactFilter.SetLayerMask(whatIsGround);
     }
 
     // Update is called once per frame
-    void Update()
-    {
+    void Update() {
         moveInput = Input.GetAxis("Horizontal");
+        jumpInput = Input.GetKey(KeyCode.Space);
 
-        isGrounded = Physics2D.OverlapCircle(groundCheck.position, checkRadius, whatIsGround);
-        onWall = Physics2D.OverlapCircle(frontCheck.position, checkRadius, whatIsGround);
+        Vector2 velocity = rb_boi.velocity;
+        previousPosition = transform.position;
 
-        if (onWall) 
-        {
-            if (facing == 1) 
-            {
-                moveInput = Mathf.Clamp(moveInput, -1, 0); // if movement is 1, make it 0 instead
+        velocity.x = moveInput * speed;
+
+        if (touchingRightWall) {
+            if (velocity.x > 0) {
+                velocity.x = 0;
             }
-            else 
-            {
-                moveInput = Mathf.Clamp(moveInput, 0, 1); // if movement is -1, make it 0 instead
+
+            if (velocity.y < -slidingSpeed) {
+                velocity.y = -slidingSpeed;
             }
         }
+        else if (touchingLeftWall) {
+            if (velocity.x < 0) {
+                velocity.x = 0;
+            }
 
-        rb_boi.velocity = new Vector2(moveInput * speed, rb_boi.velocity.y);
-        
-        transform.localScale = new Vector3(facing, 1, 1);
-
-        if (moveInput < 0) 
-        {
-            facing = -1;
-        }
-        else if (moveInput > 0) 
-        {
-            facing = 1;
-        }
-        
-
-        if (isGrounded)
-        {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                rb_boi.velocity = Vector2.up * jumpForce;
+            if (velocity.y < -slidingSpeed) {
+                velocity.y = -slidingSpeed;
             }
         }
 
+        if (moveInput < 0) {
+            spriteRenderer.flipX = true;
+        }
+        else if (moveInput > 0) {
+            spriteRenderer.flipX = false;
+        }
+
+        //transform.localScale = new Vector3((spriteRenderer.flipX ? -1 : 1), 1, 1);
+
+        if (isGrounded) {
+            if (jumpInput) {
+                velocity.y = jumpForce;
+            }
+        }
+
+        rb_boi.velocity = velocity;
+    }
+
+    void OnCollisionEnter2D(Collision2D collision) {
+        int contactCount = collision.GetContacts(contactPoints);
+        bool foundFloor = false;
+        bool foundWall = false;
+        float angleFromUp;
+
+        if (((1 << collision.collider.gameObject.layer) & whatIsGround) > 0) {
+            for (int i = 0; i < contactCount; i++) {
+                angleFromUp = Vector2.Angle(Vector2.up, contactPoints[i].normal);
+
+                if (!foundFloor && (angleFromUp <= 45)) {
+                    foundFloor = true;
+                    isGrounded = true;
+                    touchedFloors.Add(collision.collider);
+                }
+                
+                if (!foundWall) {
+                    if (Vector2.Angle(Vector2.left, contactPoints[i].normal) <= 45) {
+                        foundWall = true;
+                        touchingRightWall = true;
+                        touchedRightWalls.Add(collision.collider);
+                    }
+                    else if (Vector2.Angle(Vector2.right, contactPoints[i].normal) <= 45) {
+                        foundWall = true;
+                        touchingLeftWall = true;
+                        touchedLeftWalls.Add(collision.collider);
+                    }
+                }
+
+                if (foundWall && foundFloor) {
+                    break;
+                }
+            }
+        }
+    }
+
+    void OnCollisionExit2D(Collision2D collision) {
+        //this is only called if we stop touching altogether, so just remove from every set! =P
+        touchedFloors.Remove(collision.collider);
+        touchedRightWalls.Remove(collision.collider);
+        touchedLeftWalls.Remove(collision.collider);
+
+        isGrounded = touchedFloors.Count > 0;
+        touchingRightWall = touchedRightWalls.Count > 0;
+        touchingLeftWall = touchedLeftWalls.Count > 0;
     }
 }
