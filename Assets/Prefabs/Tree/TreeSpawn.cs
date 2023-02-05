@@ -10,6 +10,8 @@ public class TreeSpawn : MonoBehaviour
 
     [SerializeField] private Animator animator;
 
+    private bool onSoil;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -19,39 +21,33 @@ public class TreeSpawn : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if ((Input.GetKeyDown(KeyCode.D)) || (Input.GetKeyDown(KeyCode.W)))
-                {
-Debug.Log("Button Pressed");                  
-                }
-    }
-
-    private void OnTriggerEnter2D(Collider2D collider)
-    {
-        if (collider.tag == "Player")
+        if (onSoil)
         {
-            if (body.activeSelf == true) 
+            if (Input.GetKeyDown(KeyCode.E)) 
             {
-Debug.Log("already active");
-                
-            }
-            else 
-            {
-            body.SetActive(true);
-            animator.SetTrigger("Grow");
-            StartCoroutine(OnTreeGrown(collider.gameObject));
+                Debug.Log("Grow to the heavens!");
+                body.SetActive(true);
+                animator.SetTrigger("Grow");
+                respawnPoint.position = transform.position + new Vector3(0, 6, 0);
             }
         }
     }
 
-    public IEnumerator OnTreeGrown(GameObject player) 
+    public void OnTriggerEnter2D(Collider2D collider) 
     {
-Debug.Log(animator.GetCurrentAnimatorClipInfo(0));
-        AnimatorClipInfo clipInfo = animator.GetCurrentAnimatorClipInfo(0)[0];
-        
-        while (clipInfo.clip.length > animator.playbackTime) {
-            yield return null;
+        if (collider.CompareTag("Player"))
+        {
+Debug.Log("On Soil");
+            onSoil = true;
         }
+    }
 
-        player.transform.position = respawnPoint.position;
+    public void OnTriggerExit2D(Collider2D collider)
+    {
+        if ((collider.CompareTag("Player")))
+        {
+Debug.Log("Off Soil");
+        onSoil = false;
+        }
     }
 }

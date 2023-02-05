@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6213131039055983276}
   - component: {fileID: 4437404516300805278}
   - component: {fileID: 469848409782424059}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -141,7 +141,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8515388930235937452}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: SpawnPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -174,9 +174,9 @@ GameObject:
   - component: {fileID: 4714413270222269462}
   - component: {fileID: -7235451114298978270}
   - component: {fileID: 1234841339360598048}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Tree
-  m_TagString: Untagged
+  m_TagString: Tree
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
