@@ -28,7 +28,7 @@ public class playerController : MonoBehaviour
         List<Collider2D> results = new List<Collider2D>();
         ContactFilter2D noFilter = new ContactFilter2D();
         int hitGround = groundedBox.OverlapCollider(noFilter.NoFilter(), results);
-        Debug.Log(hitGround);
+//Debug.Log(hitGround);
         isGrounded = hitGround > 0 && verticalVelocity <= 0;
     }
 
