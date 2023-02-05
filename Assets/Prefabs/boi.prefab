@@ -15,7 +15,7 @@ GameObject:
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8975079303866360248
 Transform:
   m_ObjectHideFlags: 0
@@ -165,7 +165,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!114 &6203681924242441587
 MonoBehaviour:
@@ -182,12 +182,12 @@ MonoBehaviour:
   speed: 5
   jumpForce: 5
   slidingSpeed: 2
-  groundCheck: {fileID: 4334317458618982200}
-  checkRadius: 0.1
+  isGrounded: 0
+  touchingLeftWall: 0
+  touchingRightWall: 0
   whatIsGround:
     serializedVersion: 2
     m_Bits: 128
-  frontCheck: {fileID: 8975079303866360248}
 --- !u!1 &7059294536543742876
 GameObject:
   m_ObjectHideFlags: 0
@@ -203,7 +203,7 @@ GameObject:
   m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4334317458618982200
 Transform:
   m_ObjectHideFlags: 0
