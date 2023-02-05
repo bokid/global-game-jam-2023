@@ -22,6 +22,9 @@ public class bokidController : MonoBehaviour {
 
     public LayerMask whatIsGround;
 
+    public AudioSource walkingSound;
+    public AudioSource jumpingSound;
+
     BoxCollider2D bodyCollider;
     private ContactFilter2D contactFilter;
     private ContactPoint2D[] contactPoints = new ContactPoint2D[16];
@@ -45,7 +48,7 @@ public class bokidController : MonoBehaviour {
     // Update is called once per frame
     void Update() {
         moveInput = Input.GetAxis("Horizontal");
-        jumpInput = Input.GetKey(KeyCode.Space);
+        jumpInput = Input.GetKeyDown(KeyCode.Space);
 
         Vector2 velocity = rb_boi.velocity;
         previousPosition = transform.position;
@@ -82,8 +85,22 @@ public class bokidController : MonoBehaviour {
 
         if (isGrounded) {
             if (jumpInput) {
+                jumpingSound.Play();
                 velocity.y = jumpForce;
             }
+
+            // play some sounds
+            if (velocity.x != 0) {
+                if (!walkingSound.isPlaying) {
+                    walkingSound.Play();
+                }
+            }
+            else {
+                walkingSound.Stop();
+            }
+        }
+        else {
+            walkingSound.Stop();
         }
 
         rb_boi.velocity = velocity;
