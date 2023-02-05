@@ -4,7 +4,9 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class playerController : MonoBehaviour
-{
+{    
+    [SerializeField] private LayerMask physicalLayers;
+
     float horizontalVelocity = 0f;
     float verticalVelocity = 0f;
     int movementDirection = 0;
@@ -16,7 +18,7 @@ public class playerController : MonoBehaviour
     public float JUMP_FORCE = 0.5f;
     public float GRAVITY_FORCE = 1f;
     public float MAX_HORIZONTAL_SPEED = 0.8f;
-
+    
     private void FixedUpdate() {
         GroundedCheck();
         HandleAcceleration();
@@ -27,9 +29,18 @@ public class playerController : MonoBehaviour
         // please don't ask me how this works
         List<Collider2D> results = new List<Collider2D>();
         ContactFilter2D noFilter = new ContactFilter2D();
-        int hitGround = groundedBox.OverlapCollider(noFilter.NoFilter(), results);
-//Debug.Log(hitGround);
-        isGrounded = hitGround > 0 && verticalVelocity <= 0;
+        int hits = groundedBox.OverlapCollider(noFilter.NoFilter(), results);
+Debug.Log(hits);
+
+        isGrounded = false;
+        for(int i = 0; i < hits; i++)
+        {
+            if (((1 << results[i].gameObject.layer) & physicalLayers) > 0)
+            {
+                isGrounded = true;
+                break;
+            }
+        }
     }
 
     void HandleAcceleration() {
@@ -54,7 +65,7 @@ public class playerController : MonoBehaviour
         if (!isGrounded) {
             verticalVelocity -= GRAVITY_FORCE * Time.fixedDeltaTime;
         }
-        else {
+        else if (verticalVelocity < 0) {
             verticalVelocity = 0;
         }
     }
