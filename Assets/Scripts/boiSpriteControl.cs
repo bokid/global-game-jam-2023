@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class boiSpriteControl : MonoBehaviour
 {
-    public SpriteRenderer spriteRenderer;
-    public Sprite idleSprite;
-    public Sprite runSprite;
 
     public Animator animator;
 
