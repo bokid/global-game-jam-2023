@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class TreeSpawn : MonoBehaviour
 {
-    public Transform respawnPoint;
+    public RespawnPoint respawnPoint;
 
     [SerializeField] private GameObject treeVisual;
 
     [SerializeField] private Animator treeVisualAnimator;
+
+    private Transform treeSpawnPoint;
 
     private bool onSoil;
 
@@ -16,7 +18,8 @@ public class TreeSpawn : MonoBehaviour
     void Start()
     {
         treeVisualAnimator = treeVisual.GetComponent<Animator>();
-        respawnPoint = GameObject.Find("RespawnPoint").transform;
+        treeSpawnPoint = transform.Find("SpawnPoint");
+        respawnPoint = RespawnPoint.instance;
     }
 
     // Update is called once per frame
@@ -28,7 +31,7 @@ public class TreeSpawn : MonoBehaviour
             {
                 Debug.Log("Grow to the heavens!");
                 treeVisualAnimator.SetTrigger("Grow");
-                respawnPoint.position = transform.position + new Vector3(0, 18, 0);
+                respawnPoint.transform.position = treeSpawnPoint.position;
             }
         }
     }
