@@ -7,6 +7,15 @@ public class bokidController : MonoBehaviour {
     private float moveInput;
 
     private bool jumpInput;
+    
+    private bool jumpStop;
+
+    private bool isJumping;
+
+    private float jumpTimeCounter;
+
+    public float jumpTime;
+    
 
     private Rigidbody2D rb_boi;
 
@@ -14,13 +23,20 @@ public class bokidController : MonoBehaviour {
 
     public float jumpForce;
 
+    public Vector2 counterForce;
+
     public float slidingSpeed;
+
+    public float fallingSpeed;
 
     /*[SerializeField]*/ private bool isGrounded;
     /*[SerializeField]*/ private bool touchingLeftWall;
     /*[SerializeField]*/ private bool touchingRightWall;
 
     public LayerMask whatIsGround;
+
+    public AudioSource walkingSound;
+    public AudioSource jumpingSound;
 
     BoxCollider2D bodyCollider;
     private ContactFilter2D contactFilter;
@@ -46,6 +62,7 @@ public class bokidController : MonoBehaviour {
     void Update() {
         moveInput = Input.GetAxis("Horizontal");
         jumpInput = Input.GetKey(KeyCode.Space);
+        
 
         Vector2 velocity = rb_boi.velocity;
         previousPosition = transform.position;
@@ -81,11 +98,53 @@ public class bokidController : MonoBehaviour {
         //transform.localScale = new Vector3((spriteRenderer.flipX ? -1 : 1), 1, 1);
 
         if (isGrounded) {
-            if (jumpInput) {
-                velocity.y = jumpForce;
+            Debug.Log("I'm Grounded!");
+            isJumping = false;
+
+            
+            if (jumpInput) 
+            {
+                jumpingSound.Play();
+                
+                isGrounded = false;
+                isJumping = true;
+                jumpTimeCounter = jumpTime;        
+            }
+            
+            // play some sounds
+            if (velocity.x != 0) {
+                if (!walkingSound.isPlaying) {
+                    walkingSound.Play();
+                }
+            }
+            else {
+                walkingSound.Stop();
             }
         }
+        else {
+            walkingSound.Stop();
+        }
 
+        if (Input.GetKey(KeyCode.Space) && isJumping == true)
+        {
+            if (jumpTimeCounter > 0)
+            {
+                velocity.y = jumpForce;
+                jumpTimeCounter -= Time.deltaTime;
+            
+            }
+            else
+            {
+                isJumping = false;
+                //velocity.y = -jumpForce;
+            }
+            
+        }
+        if (Input.GetKeyUp(KeyCode.Space))
+        {
+            isJumping = false;
+        }
+        
         rb_boi.velocity = velocity;
     }
 
