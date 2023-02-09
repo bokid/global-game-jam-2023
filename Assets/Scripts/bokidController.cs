@@ -136,7 +136,7 @@ public class bokidController : MonoBehaviour {
             else
             {
                 isJumping = false;
-                //velocity.y = -jumpForce;
+                velocity.y = -jumpForce;
             }
             
         }
